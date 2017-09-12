@@ -61,7 +61,6 @@ int commandCheck(char * buffer){
   return 1;
 }
 int main(){
-  testCases();
   int status = 1;
   while(status == 1){    //Status 1 = execution || Status 2 = executing tests || Status 0 = exit
     char buffer[1024];
