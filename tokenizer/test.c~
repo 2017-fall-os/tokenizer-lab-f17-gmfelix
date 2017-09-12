@@ -1,0 +1,18 @@
+#include "mytoc.h"
+#include <stdio.h>
+#include <unistd.h>
+
+void testCases(){
+  mytoc("Hello my dog's name is Darwin.", ' ');
+  mytoc("   Hello  World!   ", ' ');
+  mytoc("",' ');
+  mytoc("       ", ' ');
+  mytoc( "HelloWorld", ' ');
+  mytoc("Comma,Separated,Example", ',');
+  mytoc("Please,,,,,Do,,,,,not,,,,,,,break", ',');
+}
+
+int main(){
+  testCases();
+}
+	

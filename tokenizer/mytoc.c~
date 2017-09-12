@@ -1,0 +1,73 @@
+#ifndef mytoc_h
+#define mytoc_h
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "mytoc.h"
+
+
+unsigned int countCharacters(char *str, char delim){
+  unsigned int counter = 0;
+  char *tempPointer = str+1;
+  while(*tempPointer != delim && *tempPointer){
+    counter++;
+    *tempPointer++;
+  }
+  printf("%u", counter);
+  return counter;
+}
+
+unsigned int countWords(char *str, char delim){
+  unsigned int counter = 0;
+  unsigned short readingWord = 0;
+  unsigned short firstLetter = 1;
+  char *tempPointer = str;
+  while(*tempPointer){
+    if(*tempPointer == delim){
+      readingWord = 0;
+    }else{
+      if(readingWord == 0){
+	counter++;
+	readingWord = 1;
+      }
+    }
+    *tempPointer++;
+  }
+  fflush(stdout);
+}
+char * copyString(char * tempPointer, int wordLength){
+  char word[wordLength];
+  int counter = 0;
+  char * pointer;
+  while(wordLength != 0){
+    word[counter] = (*tempPointer);
+    wordLength--;
+    counter++;
+  }
+  pointer = word;
+  return pointer;
+}
+
+char ** mytoc(char *str, char delim){
+  unsigned int wordCount = countWords(str, delim);
+  char ** resultingVector =  (char**) malloc(wordCount * sizeof(char *));
+  fflush(stdout);
+  char *tempPointer = str;
+  while(*tempPointer){
+    if(*tempPointer == delim){
+      int wordLength = countCharacters(tempPointer, delim);
+      char * word = (char*) malloc(wordLength * sizeof(char));
+      word = copyString(tempPointer, wordLength);
+      //**resultingVector = *word;
+      **resultingVector++;
+      tempPointer = &(*tempPointer) + wordLength;
+    }else{
+    *tempPointer++;
+    }
+  }
+  write(1, "\n", 1);
+}
+
+
+#endif // mytoc_h
